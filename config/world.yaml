@@ -1,0 +1,88 @@
+# The development market. Rates here belong to the world; the hub never reads this file.
+seed: 20261119
+start: 2026-07-01
+business_days: 63
+cutoff: "18:30"          # Frankfurt index publication; files delivered later miss the close
+morning_after: "08:00"   # next-morning restatement sees late files
+base_level: 1000.0
+
+instruments:
+  count: 160
+  regions:
+    US: {currency: USD, mic: XNYS, country: US, ric_suffix: .N, share: 0.40, price: [20, 400]}
+    EU: {currency: EUR, mic: XETR, country: DE, ric_suffix: .DE, share: 0.35, price: [10, 200]}
+    UK: {currency: GBP, mic: XLON, country: GB, ric_suffix: .L, share: 0.25, price: [1, 40]}
+  sectors: [tech, health, industrials, financials, consumer, energy]
+  shares_millions: [80, 4000]
+
+returns:
+  market_vol: 0.009
+  sector_vol: 0.006
+  idio_vol: 0.012
+  jump_rate: 0.004          # real earnings moves, agreed by every vendor
+  jump_size: [0.08, 0.25]
+
+corporate_actions:          # chance per instrument over the window
+  split: 0.08
+  split_factors: [2, 2, 3, 4, 0.5, 0.25]    # 0.5 and 0.25 are reverse splits
+  special_dividend: 0.03
+  special_yield: [0.04, 0.12]
+  dividend: 0.45
+  dividend_yield: [0.004, 0.025]
+  identifier_change: 0.06
+  isin_change_share: 0.35
+  ticker_reuse_share: 0.6
+  reuse_lag_days: [0, 4]
+  announce_lead_days: [2, 10]
+
+fx:
+  EURUSD: 1.08
+  EURGBP: 0.85
+  vol: 0.004
+
+desk:
+  minutes_per_lookup: 4
+
+vendors:
+  northwind:   # ISIN, semicolon CSV with decimal commas, GBP in pounds
+    delivery: "17:50"
+    jitter_minutes: 12
+    outage: 0.03
+    missing: 0.003
+    stale: 0.004
+    spike: 0.0015
+    unit_error: 0.0
+    ca_missing: 0.06
+    ca_wrong_date: 0.04
+    ca_wrong_value: 0.03
+    symbology_lag_days: [0, 1]
+  meridian:    # RIC, JSON lines, GBX for London
+    delivery: "17:58"
+    jitter_minutes: 15
+    outage: 0.04
+    missing: 0.006
+    stale: 0.006
+    spike: 0.002
+    unit_error: 0.0
+    ca_missing: 0.08
+    ca_wrong_date: 0.05
+    ca_wrong_value: 0.04
+    symbology_lag_days: [0, 3]
+  kestrel:     # ticker and MIC, pipe-delimited integers (price x 10^4), GBX for London
+    delivery: "18:02"
+    jitter_minutes: 12
+    outage: 0.05
+    missing: 0.008
+    stale: 0.008
+    spike: 0.003
+    unit_error: 0.02      # London price in pence labelled GBP
+    ca_missing: 0.10
+    ca_wrong_date: 0.06
+    ca_wrong_value: 0.05
+    symbology_lag_days: [0, 5]
+
+indices:
+  - {id: GTL30, name: Global Tech Leaders 30, currency: EUR, return: price, weighting: cap, cap: 0.08, size: 30, sectors: [tech]}
+  - {id: EUEW25, name: Euro Equal Weight 25, currency: EUR, return: price, weighting: equal, size: 25, regions: [EU]}
+  - {id: GDIV40, name: Global Dividend 40 TR, currency: EUR, return: total, weighting: cap, cap: 0.06, size: 40, dividend_payers: true}
+  - {id: UKS20, name: UK Select 20, currency: GBP, return: price, weighting: cap, cap: 0.10, size: 20, regions: [UK]}

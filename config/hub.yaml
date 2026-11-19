@@ -1,0 +1,19 @@
+# The hub's settings. Tuned on the development market only (config/world.yaml); the world never reads this file.
+knowledge:
+  cutoff: "18:30"          # prices and announcements delivered later miss the close
+  restate_at: "08:00"      # next morning, late files can restate yesterday
+prices:
+  agree_tolerance: 0.0005          # two vendors agree within 5 bp
+  unit_ratio: [80.0, 125.0]        # a candidate 80-125x (or 1/125-1/80x) the reference is a pence/pound mix-up
+  stale_min_move: 0.0015           # a repeated price is stale only when the others moved at least this much
+  single_source_max_move: 0.06     # one vendor alone may move this far from the peer-expected price
+  disagreement_review: 0.004       # vendors that disagree by more than this go to the desk
+actions:
+  value_tolerance: 0.01            # two announcements agree within 1%
+  split_confirm_tolerance: 0.15    # observed price ratio vs 1/factor
+  unannounced_split_tolerance: 0.03
+  unannounced_split_min_move: 0.45 # |log price ratio| before a silent split is suspected
+  dividend_review_yield: 0.03      # a single-source dividend above this yield goes to the desk
+  duplicate_window_days: 3
+review:
+  capacity_per_day: 12             # desk lookups before the close

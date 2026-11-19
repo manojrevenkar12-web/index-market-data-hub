@@ -1,0 +1,8 @@
+# What the hub must achieve on the development market before the held-out market is run. Not moved after.
+hub:
+  wrong_index_closes_max: 6         # index-days off the true level by more than the threshold
+  index_error_threshold_bps: 1.0
+  max_index_error_bps_max: 25.0
+  wrong_actions_max: 2
+  desk_lookups_per_day_max: 12
+  calculators_agree_to: 1.0e-9

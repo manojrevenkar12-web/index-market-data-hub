@@ -1,0 +1,27 @@
+@import "@fontsource-variable/archivo/standard.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-paper text-copy font-ui text-body;
+    font-variant-numeric: tabular-nums;
+    font-stretch: 100%;
+  }
+  :focus-visible {
+    outline: 2px solid theme("colors.focus");
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .stretch-condensed { font-stretch: 75%; }
+  .stretch-expanded { font-stretch: 125%; }
+}

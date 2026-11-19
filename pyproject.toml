@@ -1,0 +1,19 @@
+[project]
+name = "index-market-data-hub"
+version = "1.0.0"
+description = "Multi-vendor market data for index calculation: vendor failover, bad-tick and stale-price checks, corporate actions, a point-in-time golden source, FastAPI and streaming."
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = ["web"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003"]

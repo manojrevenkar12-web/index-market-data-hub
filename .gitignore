@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.db
+drops/
+web/node_modules/
+web/dist/
+web/test-results/
+web/playwright-report/
+infra/terraform/.terraform/
+infra/terraform/*.tfstate*
