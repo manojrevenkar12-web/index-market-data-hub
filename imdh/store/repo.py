@@ -51,6 +51,8 @@ class Store:
             for r in reference:
                 s.merge(Instrument(id=r.id, isin=r.isin, ric=r.ric, ticker=r.ticker, mic=r.mic,
                                    currency=r.currency, region=r.region, sector=r.sector))
+            s.flush()  # instruments before the identifiers that reference them
+            for r in reference:
                 for id_type, value in (("isin", r.isin), ("ric", r.ric), ("ticker", r.ticker)):
                     s.add(Identifier(id_type=id_type, value=value, instrument_id=r.id, valid_from=dt.date.min,
                                      recorded_at=at, source="reference"))
